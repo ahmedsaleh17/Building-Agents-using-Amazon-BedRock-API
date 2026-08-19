@@ -1,5 +1,8 @@
-import boto3 
-import json 
+"""Summarize meeting notes with an Amazon Bedrock foundation model."""
+
+import json
+
+import boto3
 
 # ---------------------------------------------------------------------------
 # Sample meeting notes
@@ -34,21 +37,43 @@ Wrap-up: next sync same time next week.
 # Basic InvokeModel call
 # ---------------------------------------------------------------------------
 def bedrock_connection(region):
+    """Create a Bedrock Runtime client for the requested AWS Region.
+
+    Args:
+        region: AWS Region where the model is available and enabled.
+
+    Returns:
+        A boto3 Bedrock Runtime client configured for ``region``.
     """
-    This function connect to bedrock runtime in specific region 
+    return boto3.client("bedrock-runtime", region_name=region)
+
+
+
+def summarize_notes(notes):
+    """Summarize meeting notes into decisions and owner-specific actions.
+
+    Args:
+        notes: Raw meeting notes to send to the language model.
+
+    Returns:
+        The model-generated summary as plain text.
+
+    Raises:
+        botocore.exceptions.ClientError: If AWS authentication, permissions,
+            model access, or the Bedrock request fails.
+        json.JSONDecodeError: If Bedrock returns a response that is not valid
+            JSON.
+        KeyError: If the model response does not contain the expected fields.
     """
-    bedrock = boto3.client("bedrock-runtime", region_name = "us-east-1")
-    return bedrock 
 
-
-
-def summarize_notes(notes): 
-
-    # bedrock runtime
-    bedrock = bedrock_connection('us-east-1')
-
+    # The model ID and Region must refer to a model available in the
+    # configured AWS account and Region.
+    region = "us-east-1"
     model_id = "amazon.nova-pro-v1:0"
+    bedrock = bedrock_connection(region)
 
+    # Keep the requested output structure explicit so the model produces a
+    # useful summary for downstream review.
     prompt = (
         "Summarize the following meeting notes into:\n"
         "1. Key decisions made\n"
@@ -61,11 +86,11 @@ def summarize_notes(notes):
 
 
     body = {
-        "messages": [{"role" : "user", "content": [{"text": prompt}]}],
-        "inferenceConfig": {"maxTokens": 512, "temperature": 0.0}
+        "messages": [{"role": "user", "content": [{"text": prompt}]}],
+        "inferenceConfig": {"maxTokens": 512, "temperature": 0.0},
     }
 
-
+    # InvokeModel expects the Nova request body as a JSON-encoded string.
     response = bedrock.invoke_model(
         modelId=model_id,
         body=json.dumps(body),
@@ -73,6 +98,7 @@ def summarize_notes(notes):
         accept="application/json",
     )
 
+    # The response body is a streaming object; read it before decoding JSON.
     result = json.loads(response["body"].read())
     return result["output"]["message"]["content"][0]["text"]
 
@@ -84,7 +110,6 @@ def summarize_notes(notes):
 
 
 if __name__ == "__main__":
-
     print("=== InvokeModel ===\n")
     summary = summarize_notes(MEETING_NOTES)
     print(summary)
