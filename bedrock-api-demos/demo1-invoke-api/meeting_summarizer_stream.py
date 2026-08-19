@@ -34,7 +34,7 @@ Wrap-up: next sync same time next week.
 
 
 # ---------------------------------------------------------------------------
-# Basic InvokeModel call
+# Bedrock client and streaming InvokeModel call
 # ---------------------------------------------------------------------------
 def bedrock_connection(region):
     """Create a Bedrock Runtime client for the requested AWS Region.
@@ -49,14 +49,15 @@ def bedrock_connection(region):
 
 
 
-def summarize_notes(notes):
-    """Summarize meeting notes into decisions and owner-specific actions.
+def summarize_notes_stream(notes):
+    """Stream a meeting summary as Bedrock generates each text fragment.
 
     Args:
         notes: Raw meeting notes to send to the language model.
 
     Returns:
-        The model-generated summary as plain text.
+        None. Text fragments are written directly to standard output as they
+        arrive, followed by a newline when the stream is complete.
 
     Raises:
         botocore.exceptions.ClientError: If AWS authentication, permissions,
@@ -90,21 +91,22 @@ def summarize_notes(notes):
         "inferenceConfig": {"maxTokens": 512, "temperature": 0.0},
     }
 
-    # Synchronous invocation
-
-    # InvokeModel expects the Nova request body as a JSON-encoded string. 
-    response = bedrock.invoke_model(
-        modelId=model_id,
+    # The streaming API returns an event stream instead of one complete body.
+    response = bedrock.invoke_model_with_response_stream(
+        modelId=model_id, 
         body=json.dumps(body),
         contentType="application/json",
         accept="application/json",
     )
 
-    # The response body is a streaming object; read it before decoding JSON.
-    result = json.loads(response["body"].read())
-    return result["output"]["message"]["content"][0]["text"]
+    for event in response["body"]:
+        chunk = json.loads(event["chunk"]["bytes"])
+        if "contentBlockDelta" in chunk:
+            text = chunk["contentBlockDelta"]["delta"].get("text", "")
+            # Flush each fragment so the user sees the summary immediately.
+            print(text, end="", flush=True)
 
-
+    print()
 
 # ---------------------------------------------------------------------------
 # Main
@@ -112,6 +114,5 @@ def summarize_notes(notes):
 
 
 if __name__ == "__main__":
-    print("=== InvokeModel ===\n")
-    summary = summarize_notes(MEETING_NOTES)
-    print(summary)
+    print("=== StreamInvokeModel ===\n")
+    summarize_notes_stream(MEETING_NOTES)
