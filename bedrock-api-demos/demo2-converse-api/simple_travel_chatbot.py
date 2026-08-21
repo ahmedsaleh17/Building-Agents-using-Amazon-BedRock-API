@@ -65,34 +65,3 @@ if __name__ == "__main__":
     run_chat()
 
 
-
-"""
-OutPut: 
-
-Travel Assistant: Hello! I can help you plan you next trip. Where are you thinking of going?
-
-You: i want to travel to germany, what do you recommend? 
-
-Travel Assistant: Germany is a fantastic destination! Here’s a quick guide to get you started:
-
-**Top Cities to Visit:**
-1. **Berlin**: Explore historic sites like the Brandenburg Gate, visit museums like the Pergamon, and enjoy vibrant nightlife.
-2. **Munich**: Discover the famous Marienplatz, take a day trip to Neuschwanstein Castle, and enjoy the beer gardens.
-3. **Hamburg**: Stroll along the harbor, visit the Miniatur Wunderland, and explore the St. Michael's Church.
-
-**Must-See Attractions:**
-- **Black Forest (Schwarzwald)**: Scenic hiking trails and charming villages.
-- **Rhine River**: Take a cruise and see the picturesque castles and vineyards.
-- **The Bavarian Alps**: Perfect for hiking and skiing.
-
-**Itinerary Ideas:**
-- **7-Day Itinerary**: Berlin (2 days) → Munich (2 days) → Neuschwanstein Castle (1 day) → Hamburg (2 days)
-- **10-Day Itinerary**: Berlin → Hamburg → Lübeck → Bremen → Cologne → Frankfurt → Heidelberg → Black Forest
-
-**Travel Tips:**
-- **Transportation**: The train system is efficient; consider a rail pass.
-- **Language**: Basic German phrases can be helpful, but English is widely understood.
-- **Currency**: The euro (€).
-
-Enjoy your trip to Germany! 🌍🇩🇪
-"""

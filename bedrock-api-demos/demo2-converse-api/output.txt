@@ -1,3 +1,5 @@
+python simple_travel_chatbot.py 
+
 Travel Assistant: Hello! I can help you plan you next trip. Where are you thinking of going?
 
 You: i want to travel to germany, what do you recommend? 
@@ -58,3 +60,8 @@ Travel Assistant: Sure, here's a detailed 10-day itinerary for an unforgettable 
 Enjoy your trip! 🌍🚂🍻
 You: ^C
 Good Bye :)
+
+--------------------------------------------------------------------------
+
+
+
