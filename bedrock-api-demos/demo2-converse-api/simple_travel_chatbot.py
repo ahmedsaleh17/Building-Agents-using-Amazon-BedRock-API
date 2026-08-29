@@ -60,7 +60,6 @@ def run_chat():
         print(f"\nTravel Assistant: {reply}")
 
 
-
 if __name__ == "__main__":
     run_chat()
 
