@@ -36,6 +36,7 @@ async def invoke(payload: dict, context=None):
         system_prompt=SYSTEM_PROMPT,
         tools=[calculator],
     )
+ 
     return agent(user_message)
 
 

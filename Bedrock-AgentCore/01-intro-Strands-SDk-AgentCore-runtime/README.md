@@ -13,7 +13,49 @@ By the end of this module, you will be able to:
 - Plug a built-in Strands tool (`calculator`) into the agent with a single import.
 - Iterate locally with `agentcore dev` and deploy with `agentcore deploy`.
 
+## Install and verify the AgentCore CLI
 
+Before continuing, install `uv` and the AgentCore starter toolkit:
+
+```bash
+pip install uv
+uv pip install bedrock-agentcore-starter-toolkit
+```
+
+Verify that the AgentCore CLI is available:
+
+```bash
+agentcore --help
+```
+
+## Run and test locally
+
+From this directory, configure the AgentCore project and start the local development server:
+
+```bash
+agentcore configure
+agentcore dev
+```
+
+Leave `agentcore dev` running. In a second terminal, run a local test invocation:
+
+```bash
+agentcore invoke --dev '{"message": "A flight costs $349. Hotel is $175/night for 4 nights. Total?"}'
+```
+
+## Deploy and verify
+
+Once local tests pass, deploy the application:
+
+```bash
+agentcore deploy --auto-update-on-conflict
+```
+
+Then verify the deployed application with an invocation:
+
+```bash
+agentcore invoke '{"message": "How do I contact Horizon Travel customer support?"}'
+```
 
 # Understanding your AWS Bedrock AgentCore application
 
