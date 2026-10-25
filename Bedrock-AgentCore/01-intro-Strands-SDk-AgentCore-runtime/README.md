@@ -62,8 +62,9 @@ agentcore invoke '{"message": "How do I contact Horizon Travel customer support?
 This code builds a simple AI travel assistant called WanderBot using three main components:
 
 - Amazon Bedrock — provides the foundation model that understands user requests and generates responses.
-- Strands Agents SDK — manages the agent's reasoning and tool usage.
-- Amazon Bedrock AgentCore Runtime — hosts the application and provides an entry point for incoming requests.
+- Strands Agents SDK — manages the agent's reasoning and tool usage. 
+    an open-source software development kit (SDK) created by AWS to build and run autonomous AI agents in Python and TypeScript.
+- Amazon Bedrock AgentCore Runtime — hosts the application and provides an entry point for incoming requests. is responsible for hosting and receiving requests
 
 The assistant can answer travel questions and use a calculator tool when it needs to calculate costs, tips, totals, durations, or percentages.
 
@@ -178,6 +179,11 @@ Let's examine each part:
 - `payload: dict` indicates that the handler expects a dictionary containing request data.
 - `context=None` allows the handler to receive runtime context when supplied.
 
+```
+Note: The difference between sync function and async function
+The main difference is that synchronous functions block code execution until they finish, while asynchronous functions run in the background and allow the rest of the program to keep moving.
+```
+
 For example, a request might contain:
 
 ```
@@ -187,6 +193,10 @@ For example, a request might contain:
 The runtime passes the request payload to your handler, and your code decides what to do with it.
 
 The `context` argument is optional in this implementation because the code doesn't use it. In a more advanced application, runtime context can help you access invocation or session-related information, depending on the available runtime interface.
+
+The decorator @app.entrypoint registers invoke as the entry point.
+
+When a request arrives, the runtime invokes that function with the payload and, where available, the context.
 
 Official reference: [AgentCore Runtime entry-point pattern](https://docs.aws.amazon.com/guidance/latest/agentic-vehicle-experience-on-aws/agentcore-runtime.html?utm_source=chatgpt.com).
 
