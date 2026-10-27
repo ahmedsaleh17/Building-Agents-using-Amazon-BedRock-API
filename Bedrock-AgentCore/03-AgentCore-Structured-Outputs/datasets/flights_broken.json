@@ -1,0 +1,46 @@
+[
+  {
+    "flight_number": "HZ-101",
+    "origin": "LHR",
+    "destination": "CDG",
+    "date": "2026-03-15",
+    "departure_time": "08:30",
+    "arrival_time": "10:45",
+    "price_usd": "not available",
+    "available_seats": 42,
+    "status": "SCHEDULED",
+    "cabin_class": "Economy",
+    "aircraft": "A320neo",
+    "gate": "B14"
+  },
+  {
+    "flight_number": "HZ-102",
+    "origin": "LHR",
+    "destination": "CDG",
+    "departure_time": "14:15",
+    "arrival_time": "16:30",
+    "price_usd": 349.99,
+    "available_seats": -3,
+    "status": "SCHEDULED",
+    "cabin_class": "Business",
+    "aircraft": "B787",
+    "gate": "A7"
+  },
+  {
+    "flight_number": "HZ-205",
+    "origin": "JFK",
+    "destination": "LAX",
+    "date": "2026-03-15",
+    "departure_time": "07:00",
+    "arrival_time": "10:15",
+    "price_usd": 289.00,
+    "available_seats": 15,
+    "status": "SCHEDULED",
+    "cabin_class": "Economy",
+    "aircraft": "A321XLR",
+    "gate": "C22"
+  }
+]
+
+
+
