@@ -70,6 +70,14 @@ The assistant can answer travel questions and use a calculator tool when it need
 
 ## 1. Understand the architecture first
 
+## Big picture
+
+Two layers work together:
+
+- Strands Agents SDK is the agent framework. It handles the reasoning loop, tool calling, and model calls.
+- Bedrock AgentCore Runtime is the hosting layer. It runs your agent as a managed, serverless, session-isolated container.
+
+
 ![architecture](Images/architecture.png)
 
 Think of this as a data pipeline:
