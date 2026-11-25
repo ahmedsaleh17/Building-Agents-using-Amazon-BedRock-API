@@ -54,7 +54,7 @@ MIA = Miami | LAX = Los Angeles | BCN = Barcelona | FCO = Rome Fiumicino"""
 
 
 # ===========================================================================
-# PYDANTIC MODELS
+# PYDANTIC MODELS - Data Schemas 
 # ===========================================================================
 
 class FlightSearchInput(BaseModel):
